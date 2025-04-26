@@ -82,33 +82,17 @@
 
 <script>
 let questions = [
-  {
-    question: "จากสูตรนี้ <br><img src='images/trig_identity.png' width='250'><br>ค่า sin²θ + cos²θ เท่ากับเท่าไหร่?",
-    choices: ["0", "1", "2", "ไม่สามารถหาค่าได้"],
-    answer: 1
-  },
-  {
-    question: "ดูกราฟนี้ <br><img src='images/graph_sin.png' width='250'><br>จุดสูงสุดของกราฟ sin(x) คือเท่าไหร่?",
-    choices: ["0", "1", "-1", "ไม่แน่ใจ"],
-    answer: 1
-  },
-  {
-    question: "จากแผนภาพนี้ <br><img src='images/vector_direction.png' width='250'><br>เวกเตอร์มีทิศทางไปในควอดรันต์ใด?",
-    choices: ["ควอดรันต์ที่ 1", "ควอดรันต์ที่ 2", "ควอดรันต์ที่ 3", "ควอดรันต์ที่ 4"],
-    answer: 0
-  },
-  {
-    question: "จากสูตรนี้ <br><img src='images/derivative_rule.png' width='250'><br>อนุพันธ์ของ x² คือข้อใด?",
-    choices: ["x", "2x", "x²", "2x²"],
-    answer: 1
-  },
-  {
-    question: "ในภาพนี้ <br><img src='images/probability_tree.png' width='250'><br>ความน่าจะเป็นที่จะได้เหรียญหัวทั้งหมดคือเท่าไหร่?",
-    choices: ["1/2", "1/4", "1/8", "1/16"],
-    answer: 1
-  }
+    {question: "สมการ x² - 5x + 6 = 0 มีรากคือข้อใด", choices: ["x=2 หรือ 3", "x=1 หรือ 6", "x=5 หรือ 1", "x=3 หรือ 4"], answer: "x=2 หรือ 3"},
+    {question: "f(x) = 2x + 3 เมื่อ x = 4 จะได้ค่าเท่าใด", choices: ["11", "8", "7", "10"], answer: "11"},
+    {question: "ผลบวกลำดับเลขคณิต 2, 5, 8, ..., 29 คือ", choices: ["155", "150", "145", "160"], answer: "155"},
+    {question: "พจน์ที่ 5 ของลำดับเรขาคณิต 3,6,12,...", choices: ["48", "24", "96", "36"], answer: "48"},
+    {question: "เวกเตอร์ u=(3,4) และ v=(1,2) u+v เท่าใด", choices: ["(4,6)", "(2,6)", "(5,6)", "(3,5)"], answer: "(4,6)"},
+    {question: "เมทริกซ์ [[1,2],[3,4]] x [[2,0],[1,2]]", choices: ["[[4,4],[10,8]]", "[[5,4],[9,8]]", "[[4,5],[10,8]]", "[[5,5],[9,9]]"], answer: "[[4,4],[10,8]]"},
+    {question: "ด้านตรงข้ามุมฉากยาว 5,12 ด้านตรงมุมฉากเท่าได", choices: ["13", "14", "12", "15"], answer: "13"},
+    {question: "(2+3i)(1-4i) เท่ากับข้อใด", choices: ["14-5i", "14+5i", "10-10i", "10+10i"], answer: "14-5i"},
+    {question: "ภาพเป็นอัตราส่วนต่อสูงคือ 2:3 ฐานยาว 10 หน่วย สูงยาวกี่หน่วย", choices: ["15", "12", "18", "20"], answer: "15"},
+    {question: "แก้อสมการ 2x-5>7", choices: ["x>6", "x>5", "x>7", "x>4"], answer: "x>6"}
 ];
-
 
 let currentQuestion = 0;
 let score = 0;
