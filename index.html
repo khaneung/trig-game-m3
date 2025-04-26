@@ -59,7 +59,7 @@
 <div class="container">
   <h1>เกมคณิตศาสตร์ ม.4-6</h1>
   <div id="player-form">
-    <h3>กรุณาไป้ข้มูลเล่น</h3>
+    <h3>กรุณาใส่ข้อมูลผู้เล่น</h3>
     ชื่อ-นามสกุล: <input type="text" id="name"><br>
     ชั้น: <input type="text" id="class"><br>
     เลขที่: <input type="text" id="number"><br><br>
@@ -76,7 +76,7 @@
   <div id="result" style="display:none;"></div>
 
   <footer>
-    เกมคณิตศาสตร์ โดย สร้างโดย AI อาจารย์ และพัฒนาคร บรรณ์
+    เกมคณิตศาสตร์ โดย สร้างโดย AI และครูบี จามจุรี  ศรีกันทะ
   </footer>
 </div>
 
@@ -90,8 +90,8 @@ let questions = [
     {question: "เมทริกซ์ [[1,2],[3,4]] x [[2,0],[1,2]]", choices: ["[[4,4],[10,8]]", "[[5,4],[9,8]]", "[[4,5],[10,8]]", "[[5,5],[9,9]]"], answer: "[[4,4],[10,8]]"},
     {question: "ด้านตรงข้ามุมฉากยาว 5,12 ด้านตรงมุมฉากเท่าได", choices: ["13", "14", "12", "15"], answer: "13"},
     {question: "(2+3i)(1-4i) เท่ากับข้อใด", choices: ["14-5i", "14+5i", "10-10i", "10+10i"], answer: "14-5i"},
-    {question: "ภาพเป็นอัตราส่วนฐี่ฐานบาษต่อสูงคือ 2:3 ฐ้าฐานยาว 10 หน่วย สูงยาวกี่หน่วย", choices: ["15", "12", "18", "20"], answer: "15"},
-    {question: "แก้ออสมการ 2x-5>7", choices: ["x>6", "x>5", "x>7", "x>4"], answer: "x>6"}
+    {question: "ภาพเป็นอัตราส่วนต่อสูงคือ 2:3 ฐานยาว 10 หน่วย สูงยาวกี่หน่วย", choices: ["15", "12", "18", "20"], answer: "15"},
+    {question: "แก้อสมการ 2x-5>7", choices: ["x>6", "x>5", "x>7", "x>4"], answer: "x>6"}
 ];
 
 let currentQuestion = 0;
@@ -102,7 +102,7 @@ function startGame() {
   let className = document.getElementById('class').value;
   let number = document.getElementById('number').value;
   if (!name || !className || !number) {
-    alert("กรุณากรุณาไป้ให้ครบถนนี้");
+    alert("กรุณาใส่คำตอบให้ครบ");
     return;
   }
   document.getElementById('player-form').style.display = 'none';
@@ -148,7 +148,7 @@ function showResult() {
   document.getElementById('result').style.display = 'block';
   document.getElementById('result').innerHTML = `<h2>คะแนนรวม: ${score}</h2><h3>เฉลย</h3>`;
   for (let q of questions) {
-    document.getElementById('result').innerHTML += `<p>${q.question} <br><strong>ตอบที่ถูกต้อง: ${q.answer}</strong></p>`;
+    document.getElementById('result').innerHTML += `<p>${q.question} <br><strong>คำตอบที่ถูกต้อง: ${q.answer}</strong></p>`;
   }
 }
 </script>
