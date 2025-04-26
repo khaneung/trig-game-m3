@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>เกมอัตราส่วนตรีโกณมิติ ม.3</title>
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: #f0f8ff;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    .container {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    input, select, button {
+      padding: 0.5rem;
+      margin: 0.25rem;
+      width: 90%;
+      font-size: 1rem;
+    }
+    .question {
+      margin: 1rem 0;
+    }
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="gameContainer">
+    <h1>เกมอัตราส่วนตรีโกณมิติ ม.3</h1>
+    <div id="playerForm">
+      <input type="text" id="fullname" placeholder="ชื่อ-นามสกุล" required /><br/>
+      <input type="text" id="class" placeholder="ชั้น" required /><br/>
+      <input type="number" id="number" placeholder="เลขที่" required /><br/>
+      <button onclick="startGame()">เริ่มเกม</button>
+    </div>
+
+    <div id="gameArea" style="display:none;">
+      <p id="playerInfo"></p>
+      <p id="questionText"></p>
+      <div id="choices"></div>
+      <p id="timer"></p>
+      <button onclick="nextQuestion()" style="display:none;" id="nextBtn">ข้อต่อไป</button>
+    </div>
+
+    <div id="resultArea" style="display:none;">
+      <h2>สรุปผลคะแนน</h2>
+      <p id="score"></p>
+      <div id="answersList"></div>
+    </div>
+  </div>
+  <div class="footer">© 2025 โรงเรียนของคุณ | วิชาคณิตศาสตร์</div>
+
+  <script>
+    const questions = [
+      { q: "tan 45° เท่ากับเท่าไร", c: ["0", "1", "√3", "ไม่มีค่า"], a: 1 },
+      { q: "cos 60° มีค่าเท่าไร", c: ["1", "0.5", "√3/2", "0"], a: 1 },
+      { q: "sin 30° มีค่าเท่าไร", c: ["0.5", "1", "√3/2", "0"], a: 0 },
+      { q: "tan 30° มีค่าเท่าไร", c: ["√3", "1", "1/√3", "0"], a: 2 },
+      { q: "cos 0° เท่ากับเท่าไร", c: ["1", "0", "0.5", "ไม่มีค่า"], a: 0 },
+      { q: "sin 90° เท่ากับเท่าไร", c: ["1", "0", "√3", "ไม่มีค่า"], a: 0 },
+      { q: "cos 90° เท่ากับเท่าไร", c: ["1", "0", "0.5", "ไม่มีค่า"], a: 1 },
+      { q: "tan 0° เท่ากับเท่าไร", c: ["1", "0", "ไม่มีค่า", "∞"], a: 1 },
+      { q: "tan 90° เป็นเท่าไร", c: ["0", "ไม่มีค่า", "1", "∞"], a: 1 },
+      { q: "cos²θ + sin²θ เท่ากับอะไร", c: ["1", "0", "2", "θ"], a: 0 }
+    ];
+    let current = 0, score = 0, timer, seconds = 60;
+    let userAnswers = [];
+    function startGame() {
+      const name = document.getElementById("fullname").value;
+      const cls = document.getElementById("class").value;
+      const num = document.getElementById("number").value;
+      if (!name || !cls || !num) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      document.getElementById("playerForm").style.display = "none";
+      document.getElementById("gameArea").style.display = "block";
+      document.getElementById("playerInfo").innerText = `ชื่อ: ${name} | ชั้น: ${cls} | เลขที่: ${num}`;
+      showQuestion();
+    }
+    function showQuestion() {
+      seconds = 60;
+      document.getElementById("nextBtn").style.display = "none";
+      const q = questions[current];
+      document.getElementById("questionText").innerText = `ข้อ ${current+1}: ${q.q}`;
+      const choiceDiv = document.getElementById("choices");
+      choiceDiv.innerHTML = "";
+      q.c.forEach((c, i) => {
+        const btn = document.createElement("button");
+        btn.innerText = c;
+        btn.onclick = () => selectAnswer(i);
+        choiceDiv.appendChild(btn);
+      });
+      timer = setInterval(() => {
+        document.getElementById("timer").innerText = `เหลือเวลา: ${seconds--} วินาที`;
+        if (seconds < 0) {
+          clearInterval(timer);
+          userAnswers.push({ question: q.q, correct: q.c[q.a], selected: "หมดเวลา" });
+          score--;
+          nextButton();
+        }
+      }, 1000);
+    }
+    function selectAnswer(i) {
+      clearInterval(timer);
+      const q = questions[current];
+      const isCorrect = i === q.a;
+      score += isCorrect ? 1 : -1;
+      userAnswers.push({ question: q.q, correct: q.c[q.a], selected: q.c[i] });
+      nextButton();
+    }
+    function nextButton() {
+      document.getElementById("nextBtn").style.display = "inline";
+    }
+    function nextQuestion() {
+      current++;
+      if (current >= questions.length) {
+        document.getElementById("gameArea").style.display = "none";
+        document.getElementById("resultArea").style.display = "block";
+        document.getElementById("score").innerText = `คะแนนรวมของคุณคือ: ${score} จาก ${questions.length}`;
+        const ansDiv = document.getElementById("answersList");
+        userAnswers.forEach((ans, i) => {
+          const p = document.createElement("p");
+          p.innerHTML = `ข้อ ${i+1}: ${ans.question}<br/>คุณตอบ: ${ans.selected} | คำตอบที่ถูก: ${ans.correct}<br/><br/>`;
+          ansDiv.appendChild(p);
+        });
+      } else {
+        showQuestion();
+      }
+    }
+  </script>
+</body>
+</html>
