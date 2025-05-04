@@ -1,152 +1,199 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เกมคณิตศาสตร์ ม.4-6 | โรงเรียนสาธิตแห่งหนึ่ง</title>
-    <style>
-        body {
-            font-family: 'Prompt', sans-serif;
-            background-color: #e8f5e9;
-            color: #1b5e20;
-            text-align: center;
-            padding: 20px;
-        }
-        #game, #result {
-            display: none;
-        }
-        input, button {
-            padding: 10px;
-            margin: 5px;
-            border-radius: 10px;
-            border: 1px solid #4caf50;
-            font-size: 1rem;
-        }
-        button {
-            background-color: #4caf50;
-            color: white;
-            cursor: pointer;
-        }
-        footer {
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #388e3c;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>ดูบอลสด - พร้อมโลโก้ช่อง</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    video {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      border: 4px solid #00d8ff;
+      border-radius: 12px;
+    }
+
+    #current-logo {
+      margin-top: 20px;
+    }
+
+    #current-logo img {
+      width: 150px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    h1 {
+      margin: 30px 0 10px;
+    }
+
+    .channel-list {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .channel {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .channel:hover {
+      transform: scale(1.1);
+    }
+
+    .channel img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 2px solid #00d8ff;
+    }
+
+    .channel p {
+      margin-top: 8px;
+    }
+  </style>
 </head>
 <body>
-    <h1>เกมคณิตศาสตร์ ม.4-6</h1>
 
-    <div id="start">
-        <h3>กรอกข้อมูลผู้เล่น</h3>
-        <input type="text" id="fullname" placeholder="ชื่อ-นามสกุล"><br>
-        <input type="text" id="classroom" placeholder="ชั้น"><br>
-        <input type="text" id="number" placeholder="เลขที่"><br>
-        <button onclick="startGame()">เริ่มเกม</button>
+  <!-- วิดีโอ -->
+  <video id="video" controls autoplay></video>
+
+  <!-- โลโก้ช่อง -->
+  <div id="current-logo">
+    <img id="channel-logo" src="" alt="" />
+  </div>
+
+  <!-- ย้ายมาด้านล่าง -->
+  <h1>📺 เลือกช่องดูบอลสด</h1>
+
+  <div class="channel-list">
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_epl1/index.fmp4.m3u8" data-logo="https://cms.dmpcdn.com/livetv/2022/01/12/24712c40-7374-11ec-91d2-797a50c5a656_webp_320.png">
+      <img src="https://cms.dmpcdn.com/livetv/2022/01/12/24712c40-7374-11ec-91d2-797a50c5a656_webp_320.png" alt="EPL 1">
+      <p>EPL 1</p>
     </div>
 
-    <div id="game">
-        <h3 id="playerInfo"></h3>
-        <h2 id="question"></h2>
-        <div id="options"></div>
-        <h4 id="timer">เวลา: 60 วินาที</h4>
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_epl2/index.fmp4.m3u8" data-logo="https://cms.dmpcdn.com/livetv/2023/05/03/ba4c4510-e966-11ed-896e-69ce273284a6_webp_original.webp">
+      <img src="https://cms.dmpcdn.com/livetv/2023/05/03/ba4c4510-e966-11ed-896e-69ce273284a6_webp_original.webp" alt="EPL 2">
+      <p>EPL 2</p>
     </div>
 
-    <div id="result">
-        <h2>สรุปผลคะแนน</h2>
-        <p id="score"></p>
-        <p id="answers"></p>
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_epl3/index.fmp4.m3u8" data-logo="https://cms.dmpcdn.com/livetv/2023/05/03/baf9ea30-e966-11ed-a3d3-f3f98ac7a1a1_webp_original.webp">
+      <img src="https://cms.dmpcdn.com/livetv/2023/05/03/baf9ea30-e966-11ed-a3d3-f3f98ac7a1a1_webp_original.webp" alt="EPL 3">
+      <p>EPL 3</p>
     </div>
 
-    <footer>
-        โรงเรียนสาธิตแห่งหนึ่ง | ปีการศึกษา 2568 | สู้ ๆ นะเด็ก ๆ!
-    </footer>
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_epl4/index.fmp4.m3u8" data-logo="https://cms.dmpcdn.com/livetv/2023/05/03/bb0beb90-e966-11ed-993c-b59183950f79_webp_original.webp">
+      <img src="https://cms.dmpcdn.com/livetv/2023/05/03/bb0beb90-e966-11ed-993c-b59183950f79_webp_original.webp" alt="EPL 4">
+      <p>EPL 4</p>
+    </div>
 
-    <script>
-        let questions = [
-            {q: "แก้สมการ: 2x + 3 = 7", options: ["x=2", "x=3", "x=4", "x=1"], answer: "x=2"},
-            {q: "ค่า log_2 8 เท่ากับเท่าไร", options: ["2", "3", "4", "1"], answer: "3"},
-            {q: "กราฟของ y = x^2 เป็นรูปร่างใด", options: ["เส้นตรง", "พาราโบลา", "วงกลม", "เส้นโค้งไฮเปอร์โบลา"], answer: "พาราโบลา"},
-            {q: "จำนวนเชิงซ้อนคือข้อใด", options: ["5", "-7", "3i", "2.5"], answer: "3i"},
-            {q: "cos(90°) มีค่าเท่าใด", options: ["0", "1", "-1", "ไม่สามารถหาค่าได้"], answer: "0"},
-            // ............. (จะมีครบ 150 ข้อ เติมด้านล่าง)
-        ];
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_epl5/index.fmp4.m3u8" data-logo="https://cms.dmpcdn.com/livetv/2023/05/03/bbea1690-e966-11ed-935b-df134f58d288_webp_original.webp">
+      <img src="https://cms.dmpcdn.com/livetv/2023/05/03/bbea1690-e966-11ed-935b-df134f58d288_webp_original.webp" alt="EPL 5">
+      <p>EPL 5</p>
+    </div>
 
-        while(questions.length < 150){
-            questions.push({
-                q: "โจทย์เพิ่มเติม " + (questions.length+1),
-                options: ["ตัวเลือก A", "ตัวเลือก B", "ตัวเลือก C", "ตัวเลือก D"],
-                answer: "ตัวเลือก A"
-            });
-        }
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_ts1/index.fmp4.m3u8" data-logo="https://www.lyngsat.com/logo/tv/tt/true-sports-1-th.png">
+      <img src="https://www.lyngsat.com/logo/tv/tt/true-sports-1-th.png" alt="True Sport 1">
+      <p>True Sport 1</p>
+    </div>
 
-        let player = {};
-        let score = 0;
-        let current = 0;
-        let timeLeft = 60;
-        let timer;
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_ts2/index.fmp4.m3u8" data-logo="https://www.lyngsat.com/logo/tv/tt/true-sports-2-th.png">
+      <img src="https://www.lyngsat.com/logo/tv/tt/true-sports-2-th.png" alt="True Sport 2">
+      <p>True Sport 2</p>
+    </div>
 
-        function startGame(){
-            player.fullname = document.getElementById('fullname').value;
-            player.classroom = document.getElementById('classroom').value;
-            player.number = document.getElementById('number').value;
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_ts3/index.fmp4.m3u8" data-logo="https://www.lyngsat.com/logo/tv/tt/true-sports-3-th.png">
+      <img src="https://www.lyngsat.com/logo/tv/tt/true-sports-3-th.png" alt="True Sport 3">
+      <p>True Sport 3</p>
+    </div>
 
-            if(player.fullname && player.classroom && player.number){
-                document.getElementById('start').style.display = 'none';
-                document.getElementById('game').style.display = 'block';
-                document.getElementById('playerInfo').innerText = `${player.fullname} | ชั้น ${player.classroom} | เลขที่ ${player.number}`;
-                showQuestion();
-            } else {
-                alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
-            }
-        }
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_ts4/index.fmp4.m3u8" data-logo="https://www.lyngsat.com/logo/tv/tt/true-sports-4-th.png">
+      <img src="https://www.lyngsat.com/logo/tv/tt/true-sports-4-th.png" alt="True Sport 4">
+      <p>True Sport 4</p>
+    </div>
 
-        function showQuestion(){
-            if(current >= questions.length){
-                endGame();
-                return;
-            }
-            clearInterval(timer);
-            timeLeft = 60;
-            document.getElementById('timer').innerText = `เวลา: ${timeLeft} วินาที`;
-            timer = setInterval(()=>{
-                timeLeft--;
-                document.getElementById('timer').innerText = `เวลา: ${timeLeft} วินาที`;
-                if(timeLeft <= 0){
-                    clearInterval(timer);
-                    score--;
-                    current++;
-                    showQuestion();
-                }
-            }, 1000);
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_ts5/index.fmp4.m3u8" data-logo="https://www.lyngsat.com/logo/tv/tt/true-sports-5-th.png">
+      <img src="https://www.lyngsat.com/logo/tv/tt/true-sports-5-th.png" alt="True Sport 5">
+      <p>True Sport 5</p>
+    </div>
 
-            let q = questions[current];
-            document.getElementById('question').innerText = q.q;
-            let ops = "";
-            q.options.forEach(opt => {
-                ops += `<button onclick=\"checkAnswer('${opt}')\">${opt}</button><br>`;
-            });
-            document.getElementById('options').innerHTML = ops;
-        }
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_ts7/index.fmp4.m3u8" data-logo="https://www.lyngsat.com/logo/tv/tt/true-sports-7-th.png">
+      <img src="https://www.lyngsat.com/logo/tv/tt/true-sports-7-th.png" alt="True Sport 1">
+      <p>True Sport 7</p>
+    </div>
 
-        function checkAnswer(selected){
-            clearInterval(timer);
-            if(selected == questions[current].answer){
-                score++;
-            } else {
-                score--;
-            }
-            current++;
-            showQuestion();
-        }
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_bein1/index.fmp4.m3u8" data-logo="https://www.lyngsat.com/logo/tv/bb/bein-sports-1-qa-fr.png">
+      <img src="https://www.lyngsat.com/logo/tv/bb/bein-sports-1-qa-fr.png" alt="bein 1">
+      <p>bein 1</p>
+    </div>
 
-        function endGame(){
-            document.getElementById('game').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('score').innerText = `${player.fullname} ได้คะแนนรวม ${score} คะแนน`; 
-            document.getElementById('answers').innerText = "ขอบคุณที่เล่นเกมนี้!";
-        }
-    </script>
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_bein2/index.fmp4.m3u8" data-logo="https://www.lyngsat.com/logo/tv/bb/bein-sports-2-qa-fr.png">
+      <img src="https://www.lyngsat.com/logo/tv/bb/bein-sports-1-qa-fr.png" alt="bein 2">
+      <p>bein 2</p>
+    </div>
+
+    <div class="channel" data-src="http://moo7-restream2025.ddns.net:9091/Sport_tv_bein3/index.fmp4.m3u8" data-logo="https://www.lyngsat.com/logo/tv/bb/bein-sports-3-qa-fr.png">
+      <img src="https://www.lyngsat.com/logo/tv/bb/bein-sports-1-qa-fr.png" alt="bein 3">
+      <p>bein 3</p>
+    </div>
+
+
+
+
+
+
+    <!-- (ช่องอื่น ๆ ยังคงรูปแบบเดียวกัน เพิ่ม data-logo ด้วย) -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    const video = document.getElementById('video');
+    const channels = document.querySelectorAll('.channel');
+    const logo = document.getElementById('channel-logo');
+    let hls;
+
+    function playChannel(src, logoUrl) {
+      if (hls) hls.destroy();
+
+      if (Hls.isSupported()) {
+        hls = new Hls();
+        hls.loadSource(src);
+        hls.attachMedia(video);
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = src;
+      } else {
+        alert("เบราว์เซอร์ของคุณไม่รองรับ HLS");
+      }
+
+      logo.src = logoUrl;
+    }
+
+    channels.forEach(channel => {
+      channel.addEventListener('click', () => {
+        const src = channel.getAttribute('data-src');
+        const logoUrl = channel.getAttribute('data-logo');
+        playChannel(src, logoUrl);
+      });
+    });
+
+    // เริ่มต้นเล่นช่องแรก
+    const firstChannel = channels[0];
+    playChannel(firstChannel.getAttribute('data-src'), firstChannel.getAttribute('data-logo'));
+  </script>
 
 </body>
 </html>
+
+
